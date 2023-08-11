@@ -1,0 +1,12 @@
+main: de.scrupy.projectx.ProjectX
+name: ProjectX
+version: '1.0'
+description: This is a top secret plugin.
+author: Scrupy
+api-version: 1.20
+depend: [ ProtocolLib ]
+
+commands:
+  randomTeleport:
+  setLocation:
+  saveArea:
