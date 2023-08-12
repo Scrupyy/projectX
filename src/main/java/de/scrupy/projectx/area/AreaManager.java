@@ -31,19 +31,21 @@ public class AreaManager {
     }
 
     public void saveArea(Area area) throws IOException {
-        FileWriter fileWriter = new FileWriter(getAreaFile());
-        gson.toJson(area, fileWriter);
-        fileWriter.close();
+        try (FileWriter fileWriter = new FileWriter(getAreaFile())){
+            gson.toJson(area, fileWriter);
+        }
     }
 
     @Nullable
     private Area loadArea() {
         File area = getAreaFile();
         if (area.exists()) {
-            try {
-                return gson.fromJson(new FileReader(area), Area.class);
+            try (FileReader fileReader = new FileReader(area)){
+                return gson.fromJson(fileReader, Area.class);
             } catch (FileNotFoundException e) {
                 throw new RuntimeException(e);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
         return null;
